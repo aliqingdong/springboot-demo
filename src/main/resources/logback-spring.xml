@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <springProperty name="LOG_HOME" scope="context" source="log.path" defaultValue="logs"/>
+    <springProperty name="LOG_ROOT_LEVEL" scope="context" source="log.level.root" defaultValue="debug"/>
+    <springProperty name="STDOUT" scope="context" source="log.stdout" defaultValue="stdout"/>
+    <!--
+        %m 输出的信息,
+        %p 日志级别,
+        %t 线程名,
+        %d 日期,
+        %c 类的全名,
+        %i 索引,
+        %c 输出日志的logger名,
+        %line 行号
+    -->
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.sss}|%t|%p|%c{36}:%line|%m%n"/>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${LOG_PATTERN}</pattern>
+        </layout>
+    </appender>
+
+    <appender name="file_all" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/springboot-demo-all.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 文件名：log/springboot-core-all_2019-12-05_0.log -->
+            <fileNamePattern>${LOG_HOME}/springboot-demo-all_%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${LOG_PATTERN}</pattern>
+        </layout>
+    </appender>
+
+    <appender name="file_err" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 只接收 level 级别的日志 -->
+        <!--
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <OnMismatch>DENY</OnMismatch>
+            <OnMatch>ACCEPT</OnMatch>
+        </filter>
+        -->
+        <!-- 接收 level 级别以上的日志 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <File>${LOG_HOME}/springboot-demo-err.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/springboot-demo-err_%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${LOG_PATTERN}</pattern>
+        </layout>
+    </appender>
+
+    <logger level="ERROR" name="org.springframework" />
+
+    <!-- 级别依次为:TRACE < DEBUG < INFO < WARN < ERROR < FATAL -->
+    <root level="${LOG_ROOT_LEVEL}">
+        <appender-ref ref="${STDOUT}"/>
+        <!--<appender-ref ref="file_all"/>-->
+        <appender-ref ref="file_err"/>
+    </root>
+</configuration>
