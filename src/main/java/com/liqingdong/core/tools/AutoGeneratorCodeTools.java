@@ -61,7 +61,7 @@ public class AutoGeneratorCodeTools {
         gc.setServiceImplName("%sServiceImpl");
         gc.setControllerName("%sController");
         gc.setMapperName("%sMapper");
-        gc.setXmlName("%sMapper.xml");
+//        gc.setXmlName("%sMapper.xml");
         gc.setOpen(false);
         return gc;
     }
@@ -121,7 +121,7 @@ public class AutoGeneratorCodeTools {
         tc.setService("/templates/service.java");
         tc.setServiceImpl("/templates/serviceImpl.java");
         tc.setController("/templates/controller.java");
-//        tc.setXml("/templates/mapper.xml");// 此处被InjectionConfig设置覆盖，可不用设置
+        tc.setXml(null);// 此处设置为null,排除全局xml位置多生成一份
 
         return tc;
     }
