@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 此配置文件没有使用，本项目使用@Configuration方式配置事务，详细配置类TxAdviceConfig -->
+    <!-- 在SpringBoot项目启动类配合@ImportResource("classpath:transaction.xml")引入使用 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 默认属性元素 transaction-manager="transactionManager" -->
+    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <tx:method name="add*" rollback-for="Exception"/>
+            <tx:method name="save*" rollback-for="Exception"/>
+            <tx:method name="insert*" rollback-for="Exception"/>
+            <tx:method name="create*" rollback-for="Exception"/>
+            <tx:method name="update*" rollback-for="Exception"/>
+            <tx:method name="modify*" rollback-for="Exception"/>
+            <tx:method name="clear*" rollback-for="Exception"/>
+            <tx:method name="delete*" rollback-for="Exception"/>
+            <tx:method name="remove*" rollback-for="Exception"/>
+            <tx:method name="change*" rollback-for="Exception"/>
+            <tx:method name="submit*" rollback-for="Exception"/>
+            <tx:method name="complete*" rollback-for="Exception"/>
+            <tx:method name="tx*" rollback-for="Exception"/>
+            <tx:method name="syn*" rollback-for="Exception"/>
+            <tx:method name="*" propagation="SUPPORTS" rollback-for="Exception"/>
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="query*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="transactionPointcut" expression="execution (* com.liqingdong.core..*Service*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="transactionPointcut" order="0"/>
+    </aop:config>
+
+    <tx:annotation-driven/>
+</beans>
