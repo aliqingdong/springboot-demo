@@ -18,6 +18,7 @@ import java.util.Scanner;
 /**
  * 注意控制台输入表名时需保持与数据库表大小写一致，否则会报表不存在的错误，但不影响代码生成结果。
  * 另外生成的Entity类引入了些许未使用的类，生成后需要删除多余的无效引入
+ * 此生成工具配置适用数据库表字段包含公有字段(id,create_by,create_date,update_by,update_date)，其他类型表结构需适当修改
  *
  * @author liqingdong
  * @since 2019/01/29 12:26
