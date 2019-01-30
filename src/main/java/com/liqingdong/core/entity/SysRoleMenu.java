@@ -43,12 +43,12 @@ public class SysRoleMenu extends BaseEntity<SysRoleMenu> {
     private Long menuId;
 
     @Override
-    protected void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Override
-    protected Long getId(){
+    public Long getId(){
         return this.id;
     }
 

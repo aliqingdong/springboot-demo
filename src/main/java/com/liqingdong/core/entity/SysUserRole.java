@@ -43,12 +43,12 @@ public class SysUserRole extends BaseEntity<SysUserRole> {
     private Long roleId;
 
     @Override
-    protected void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Override
-    protected Long getId(){
+    public Long getId(){
         return this.id;
     }
 

@@ -55,12 +55,12 @@ public class SysRole extends BaseEntity<SysRole> {
     private String canDelete;
 
     @Override
-    protected void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Override
-    protected Long getId(){
+    public Long getId(){
         return this.id;
     }
 

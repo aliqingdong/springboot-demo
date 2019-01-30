@@ -91,12 +91,12 @@ public class SysMenu extends BaseEntity<SysMenu> {
     private String canDelete;
 
     @Override
-    protected void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Override
-    protected Long getId(){
+    public Long getId(){
         return this.id;
     }
 
