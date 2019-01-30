@@ -83,12 +83,12 @@ public class ${entity} implements Serializable {
 <#------------ 自定义实现父类ID的get/set方法 ------------>
 
     @Override
-    protected void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Override
-    protected Long getId(){
+    public Long getId(){
         return this.id;
     }
 <#------------ END 自定义实现父类 ------------>
