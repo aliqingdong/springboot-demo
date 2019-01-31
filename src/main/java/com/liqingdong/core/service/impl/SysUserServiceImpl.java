@@ -1,9 +1,9 @@
 package com.liqingdong.core.service.impl;
 
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.liqingdong.core.entity.SysUser;
 import com.liqingdong.core.mapper.SysUserMapper;
 import com.liqingdong.core.service.SysUserService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,4 +15,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
+    @Override
+    public SysUser findUserByUsername(String userName) {
+        SysUser param = new SysUser();
+        param.setUsername(userName);
+        return baseMapper.selectOne(param);
+    }
 }

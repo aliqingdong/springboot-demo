@@ -1,10 +1,13 @@
 package com.liqingdong.core.service.impl;
 
+import com.liqingdong.core.entity.SysRole;
 import com.liqingdong.core.entity.SysUserRole;
 import com.liqingdong.core.mapper.SysUserRoleMapper;
 import com.liqingdong.core.service.SysUserRoleService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 用户与角色的关联关系表 服务实现类
@@ -15,4 +18,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements SysUserRoleService {
 
+    @Override
+    public List<SysRole> queryRolesByUsername(String userName) {
+        return baseMapper.queryRolesByUsername(userName);
+    }
 }
